@@ -47,7 +47,7 @@ namespace Bulbi_dex.Panel
         {
             if (OutilsPkdx.VerifFormatTypes(TbxTypes.Text) == true)
             {
-                Generation gen = OutilsPkdx.RecupGenCbx(int.Parse(cbxGenTypes.SelectedValue.ToString()), DBConst.lstSelectGen);
+                Generation gen = OutilsPkdx.RecupGenCbx(cbxGenTypes.SelectedValue.ToString(), DBConst.lstSelectGen);
 
                 OutilsPkdx.CreatType(TbxTypes.Text, gen, DBConst.lstSelectType);
 

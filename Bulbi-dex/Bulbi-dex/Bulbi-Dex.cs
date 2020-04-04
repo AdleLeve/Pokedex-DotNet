@@ -97,11 +97,23 @@ namespace Bulbi_dex
 
         private void BtnPokemon_Click(object sender, EventArgs e)
         {
-            // On fait passer la visibilite de usc_Pkm a true
-            OutilsPkdx.VisibiliteUSC(DBConst.lstUSC, usc_Pkm);
-
             // On recupere les Pokemon dans la liste pour
             DBConst.lstSelectPkm = OutilsPkdx.RecupPokemon();
+
+            // On fait passer la visibilite de usc_Pkm a true
+            OutilsPkdx.VisibiliteUSC(DBConst.lstUSC, usc_Pkm);
+            
+            // On recupere les Images dans la liste pour
+            DBConst.lstSelectImg = OutilsPkdx.RecupImages();
+
+            // On recupere les Generations dans la liste pour
+            DBConst.lstSelectGen = OutilsPkdx.RecupGeneration();
+
+            // On recupere les Types dans la liste pour
+            DBConst.lstSelectType = OutilsPkdx.RecupTypes();
+
+            // On recupere les relations AvoirTypes dans la liste pour
+            DBConst.lstSelectAvoirType = OutilsPkdx.RecupAvoirType();
 
             // On change les couleurs des Bouttons
             OutilsPkdx.ColorBtn(DBConst.lstBtn, BtnPokemon);

@@ -25,6 +25,7 @@ namespace Bulbi_dex.Controller
         public static List<Annee> lstSelectAnnee = new List<Annee>();
         public static List<Generation> lstSelectGen = new List<Generation>();
         public static List<Types> lstSelectType = new List<Types>();
+        public static List<Types> lstSelectTypeLBX = new List<Types>();
         public static List<Images> lstSelectImg = new List<Images>();
         public static List<Pokemon> lstSelectPkm = new List<Pokemon>();
         public static List<AvoirType> lstSelectAvoirType = new List<AvoirType>();

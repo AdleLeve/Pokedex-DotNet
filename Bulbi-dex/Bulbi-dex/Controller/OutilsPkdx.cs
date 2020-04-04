@@ -59,7 +59,7 @@ namespace Bulbi_dex.Controller
         /// </summary>
         /// <param name="bl">Boolean</param>
         /// <returns>int</returns>
-        public static Int16 PassBitABool(Boolean bl)
+        public static int PassBoolABit(Boolean bl)
         {
             if (bl == true)
             {
@@ -190,6 +190,28 @@ namespace Bulbi_dex.Controller
                         return g;
                     }
                 }
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("Exception : " + e.Message, "Error");
+            }
+
+            return gen;
+        }
+
+        public static Generation RecupGenCbx(string libGen, List<Generation> lst)
+        {
+            Generation gen = new Generation();
+
+            try
+            {
+                foreach (Generation g in lst)
+                {
+                    if (libGen == g.GetLibGeneration())
+                    {
+                        return g;
+                    }
+                }
             } catch (Exception e)
             {
                 MessageBox.Show("Exception : " + e.Message, "Error");
@@ -198,19 +220,20 @@ namespace Bulbi_dex.Controller
             return gen;
         }
 
-        public static Images RecupImgCbx(int numGen, List<Images> lst)
+        public static Images RecupImgCbx(string urlComp, List<Images> lst)
         {
             Images img = new Images();
-
+            MessageBox.Show("urlComp : " + urlComp, "urlComp");
             try
             {
                 foreach (Images i in lst)
                 {
-                    if (numGen == i.GetId())
+                    if (urlComp.Equals(i.GetUrlComplete()))
                     {
                         return i;
                     }
                 }
+                MessageBox.Show("Tortipousse pas content aucune image n'a été retourner ;(");
             }
             catch (Exception e)
             {
@@ -305,6 +328,32 @@ namespace Bulbi_dex.Controller
             }
         }
 
+        public static String FormeDescription (String desc)
+        {
+            // Declarations et instanciation(s) des Objets necessaires
+            String[] tabDesc;
+            String descFormat = "";
+            String caractAjout = "\'";
+
+
+            tabDesc = desc.Split('\'');
+
+            for (int i = 0; i < tabDesc.Length; i++)
+            {
+                if (i == 0)
+                {
+                    descFormat = tabDesc[i];
+                }
+                else
+                {
+                    descFormat += caractAjout + tabDesc[i];
+                }
+            }
+
+            MessageBox.Show(descFormat, "Test mise en forme Description");
+            return descFormat;
+        }
+
         public static bool VerifFormatPkm(String num, String nom, String desc)
         {
             if (IsInteger(num) == true && num.Length == 3 && nom.Length >= 3 
@@ -325,18 +374,18 @@ namespace Bulbi_dex.Controller
             }
         }
 
-        public static bool VerifFormatAvoirType(Pokemon pkm, Types type)
+/*        public static bool VerifFormatAvoirType(Pokemon pkm, Types type)
         {
             foreach (AvoirType at in DBConst.lstSelectAvoirType)
             {
                 if (at.GetPkmAvoirType().GetNumPokedexMondialPkm().Equals(pkm.GetNumPokedexMondialPkm()) == true && at.GetTypeAvoirType().GetIdType().Equals(type.GetIdType()) == true
-                    && VerifInsertionSup2AvoirType(pkm) == true)
+                    && VerifInsertionSup2AvoirType(pkm.GetNumPokedexMondialPkm()) == true)
                 {
                     return false;
                 }
             }
             return true;
-        }
+        } */
         
         #endregion
         #endregion
@@ -547,13 +596,13 @@ namespace Bulbi_dex.Controller
                 dt.Load(mdrListe);
                 cbx.DataSource = dt;
                 cbx.DisplayMember = "lib";
-                cbx.ValueMember = "num";
+                cbx.ValueMember = "lib";
                 mdrListe.Close();
                 cbx.DropDownStyle = ComboBoxStyle.DropDownList;
             }
             catch (MySqlException e)
             {
-                MessageBox.Show("L'erreur suivante a été rencontré : " + e.Message);
+                MessageBox.Show("L'erreur suivante a été rencontré : " + e.Message + " RemplisCbxGen");
             }
 
             // Deconnection a la BD
@@ -562,7 +611,47 @@ namespace Bulbi_dex.Controller
         }
         #endregion
 
-        #region Type
+        #region Types
+        /// <summary>
+        /// Permet de recuprer le Types a partir de son numero
+        /// </summary>
+        /// <param name="idType">int</param>
+        /// <param name="libTypes">String</param>
+        /// <returns>Types</returns>
+        public static Types ConvertTypes(int idType, String libTypes, List<Types> lst)
+        {
+            Types tp = new Types();
+
+            if (idType > 0)
+            {
+                foreach (Types t in lst)
+                {
+                    if (t.GetIdType() == idType)
+                    {
+                        MessageBox.Show("Types TROUVE : " + t.GetLibType());
+                        return t;
+                    }
+                }
+            } else
+            {
+                if (libTypes != null)
+                {
+                    foreach (Types t in lst)
+                    {
+                        if (t.GetLibType().Equals(libTypes) == true)
+                        {
+                            return t;
+                        } 
+                    }
+                } else
+                {
+
+                }
+            }
+
+            return tp;
+        }
+
         /// <summary>
         /// Permet de recuperer les donnees de la table Generation de la BDD
         /// </summary>
@@ -815,16 +904,16 @@ namespace Bulbi_dex.Controller
             {
                 MySqlDataReader mdrListe = DBMySqlOutils.ExecuteReader(requete);
                 DataTable dt = new DataTable();
+                cbx.DisplayMember = "url";
+                cbx.ValueMember = "url";
                 dt.Load(mdrListe);
                 cbx.DataSource = dt;
-                cbx.DisplayMember = "url";
-                cbx.ValueMember = "id";
                 mdrListe.Close();
                 cbx.DropDownStyle = ComboBoxStyle.DropDownList;
             }
             catch (MySqlException e)
             {
-                MessageBox.Show("L'erreur suivante a été rencontré : " + e.Message);
+                MessageBox.Show("L'erreur suivante a été rencontré : " + e.Message + " RemplisCbxUrlComp");
             }
 
             // Deconnection a la BD
@@ -903,7 +992,7 @@ namespace Bulbi_dex.Controller
                 }
                 catch (Exception e)
                 {
-                    MessageBox.Show("L'erreur suivante a été rencontré : " + e.Message);
+                    MessageBox.Show("L'erreur suivante a été rencontré : " + e.Message + " / AffImgSelectedValue");
                 }
             }
         }
@@ -927,13 +1016,53 @@ namespace Bulbi_dex.Controller
             }
             catch (Exception e)
             {
-                MessageBox.Show("L'erreur suivante a été rencontré : " + e.Message);
+                MessageBox.Show("L'erreur suivante a été rencontré : " + e.Message + " / AffImgSelectedValue");
             }
             
+        }
+
+        /// <summary>
+        /// Permet d'afficher l'image correspondant à l'Url correspondant a la ligne selectionnee de la ComboBox passee en parametre dans la PictureBox passee en parametre
+        /// </summary>
+        /// <param name="source">ComboBox</param>
+        /// <param name="ptb">PictureBox</param>
+        public static void AffImgSelectedValue(ComboBox source, PictureBox ptb)
+        {
+            // declaration d'une variable string contenant l'addresse url stockée dans la Cellulle d'index 2 de la ligne selectionnee par l'utilisateur
+            string urlComp = source.SelectedValue.ToString();
+            try
+            {
+                // Chargement de l'image dans la PictureBox
+                ptb.Load(urlComp);
+            }
+            catch (Exception e)
+            {
+                MessageBox.Show("L'erreur suivante a été rencontré : " + e.Message + " / AffImgSelectedValue");
+            }
         }
         #endregion
 
         #region Pokemon
+        /// <summary>
+        /// Permet de recuprer le pokemon a partir de son numero
+        /// </summary>
+        /// <param name="numPokemon">String</param>
+        /// <returns></returns>
+        public static Pokemon ConvertPokemon (String numPokemon)
+        {
+            Pokemon pkm = new Pokemon();
+
+            foreach (Pokemon p in DBConst.lstSelectPkm)
+            {
+                if (p.GetNumPokedexMondialPkm().Equals(numPokemon))
+                {
+                    pkm = p;
+                }
+            }
+
+            return pkm;
+        }
+
         /// <summary>
         /// Permet de recuperer les donnees de la table Pokemon de la BDD
         /// </summary>
@@ -984,7 +1113,7 @@ namespace Bulbi_dex.Controller
             }
             catch (MySql.Data.MySqlClient.MySqlException probleme)
             {
-                MessageBox.Show("L'erreur suivante a été rencontré : " + probleme.Message);
+                MessageBox.Show("L'erreur suivante a été rencontré : " + probleme.Message + " / RecupPkm");
             }
 
             return lstPkm;
@@ -1014,7 +1143,7 @@ namespace Bulbi_dex.Controller
                 // ajout de cette variable a la liste
                 lst.Add(pkm);
 
-                string requete = "CALL PROC_Insert_Pkm('" + numPkm + "', '" + nomPkm + "', '" + descPkm + "', " + img.GetId() + ", " + legendaire + ", " + gen.GetNumGeneration() + ")";
+                string requete = "CALL PROC_Insert_Pkm('" + numPkm + "', '" + nomPkm + "', \"" + descPkm + "\", " + img.GetId() + ", " + PassBoolABit(legendaire) + ", " + gen.GetNumGeneration() + ")";
 
                 // insertion BDD
                 insertion = DBMySqlOutils.ExecuteNonQuery(requete);
@@ -1040,6 +1169,27 @@ namespace Bulbi_dex.Controller
 
         #region AvoirType
         /// <summary>
+        /// Permet de recuprer la relation AvoirType a partir du Pokemon et du Types
+        /// </summary>
+        /// <param name="pkm">Pokemon</param>
+        /// <param name="t">Types</param>
+        /// <returns>AvoirTypes</returns>
+        public static AvoirType ConvertAvoirType(Pokemon pkm, Types t)
+        {
+            foreach (AvoirType at in DBConst.lstSelectAvoirType)
+            {
+                if (at.GetPkmAvoirType().Equals(pkm) == true && at.GetTypeAvoirType().Equals(t) == true)
+                {
+                    return at;
+                }
+            }
+            AvoirType avtp = new AvoirType(); 
+            
+            return avtp;
+        }
+
+
+        /// <summary>
         /// Permet de recuperer les donnees de la table AvoirType de la BDD
         /// </summary>
         /// <returns>List AvoirType</returns>
@@ -1061,16 +1211,16 @@ namespace Bulbi_dex.Controller
                 while (sdrListe.Read())
                 {
                     string pk = sdrListe["num"].ToString();
-                    foreach (Pokemon p in DBConst.lstSelectPkm)
-                    {
-                        if (pk == p.GetNumPokedexMondialPkm())
-                            pkm = p;
-                    }
-                    int tp = int.Parse(sdrListe["code"].ToString());
+
+                    pkm = ConvertPokemon(pk);
+
+                    string tp = sdrListe["code"].ToString();
                     foreach (Types t in DBConst.lstSelectType)
                     {
-                        if (tp == t.GetIdType())
+                        if (tp.Equals(t.GetIdType().ToString()))
+                        {
                             type = t;
+                        }
                     }
 
                     avoirType = new AvoirType(pkm, type);
@@ -1090,30 +1240,6 @@ namespace Bulbi_dex.Controller
             }
 
             return lstAT;
-        }
-
-        public static bool VerifInsertionSup2AvoirType (Pokemon pkm)
-        {
-            try
-            {
-                string requete = "CALL PROC_Select_Count_Avoir_Type_Pkm ('" + pkm.GetNumPokedexMondialPkm() + "')";
-                
-                int entier = DBMySqlOutils.ExecuteNonQuery(requete);
-
-                if (entier < 2)
-                {
-                    return true;
-                } else
-                {
-                    MessageBox.Show("Le Pokemon possede deja deux types il ne peut en avoir plus", "Impossibilite d'insertion");
-                    return false;
-                }
-            }
-            catch (MySql.Data.MySqlClient.MySqlException probleme)
-            {
-                MessageBox.Show("L'erreur suivante a été rencontré : " + probleme.Message);
-                return false;
-            }
         }
 
         /// <summary>
@@ -1158,7 +1284,321 @@ namespace Bulbi_dex.Controller
             return avTp;
         }
 
+        /// <summary>
+        /// Permet de Supprimmer un Objet AvoirType de la liste AvoirType passee en parametre et de la BDD
+        /// </summary>
+        /// <param name="pokemon">Pokemon</param>
+        /// <param name="type">Types</param>
+        /// <param name="lst">List AvoirType</param>
+        /// <returns></returns>
+        public static AvoirType DeleteAvoirType(AvoirType avoirType, List<AvoirType> lst)
+        {
+            int suppression; // variable insertion
 
+            try
+            {
+                // Suppression de avoirType de la liste
+                lst.Remove(avoirType);
+
+                MessageBox.Show("La relation en suppression est : " + avoirType.GetPkmAvoirType().GetNumPokedexMondialPkm(), "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                // Preparation de la requete avec la procedure stockee
+                string requete = "CALL PROC_Delete_Avoir_Type ('" + avoirType.GetPkmAvoirType().GetNumPokedexMondialPkm() + "', " + avoirType.GetTypeAvoirType().GetIdType() + ")";
+
+                // insertion BDD
+                suppression = DBMySqlOutils.ExecuteNonQuery(requete);
+
+                if (suppression == 1)
+                {
+                    Console.WriteLine("La suppression de l'objet AvoirType " + avoirType.GetPkmAvoirType().GetNumPokedexMondialPkm() + " / " + avoirType.GetTypeAvoirType().GetLibType() + " réussie");
+                }
+                else
+                {
+                    Console.WriteLine("La suppression de l'objet AvoirType " + avoirType.GetPkmAvoirType().GetNumPokedexMondialPkm() + " / " + avoirType.GetTypeAvoirType().GetLibType() + " a échouée");
+                }
+            }
+            catch (MySql.Data.MySqlClient.MySqlException probleme)
+            {
+                MessageBox.Show("L'erreur suivante a été rencontré : " + probleme.Message, "Erreur", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+
+            return avoirType;
+        }
+
+        public static bool VerifInsertionSup2AvoirType (String numPkm, int nbInsertions)
+        {
+            Pokemon pkm = ConvertPokemon(numPkm);
+
+            try
+            {
+                string requete = "CALL PROC_Select_Count_Avoir_Type_Pkm ('" + pkm.GetNumPokedexMondialPkm() + "')";
+                
+                int entier = DBMySqlOutils.ExecuteNonQuery(requete);
+
+                entier += nbInsertions;
+                if (entier <= 2)
+                {
+                    return true;
+                } else
+                {
+                    MessageBox.Show("Le Pokemon possederait plus de deux types si l'insertion se fait, il ne peut en avoir plus deux", "Impossibilite d'insertion");
+                    return false;
+                }
+            }
+            catch (MySql.Data.MySqlClient.MySqlException probleme)
+            {
+                MessageBox.Show("L'erreur suivante a été rencontré : " + probleme.Message);
+                return false;
+            }
+        }
+
+        public static void RemplisCbxType(ComboBox cbx)
+        {
+            #region remplissage cbx
+            string strReq = "CALL PROC_Select_Type_Cbx ()";
+            try
+            {
+                MySqlDataReader mdrListe = DBMySqlOutils.ExecuteReader(strReq);
+                DataTable dt = new DataTable();
+                dt.Load(mdrListe);
+                cbx.DataSource = dt;
+                cbx.DisplayMember = "lib";
+                cbx.ValueMember = "code";
+                mdrListe.Close();
+                cbx.DropDownStyle = ComboBoxStyle.DropDownList;
+            }
+            catch (MySqlException e)
+            {
+                MessageBox.Show("L'erreur suivante a été rencontré : " + e.Message);
+            }
+
+            // Deconnection a la BD
+            DBMySqlOutils.MaDeconnexion();
+            #endregion
+        }
+
+        public static void SelectTypeLstBox (ListBox lbx, Label lblType1, Label lblType2, CheckBox ckbType1, 
+            CheckBox ckbType2, Button btnAj, List<AvoirType> lstAt, List<Types> lstTp)
+        {
+            if (lbx.GetSelected(0) == false) // On verifie que la valeur selectionnee ne soit pas l'entete de la ListBox
+            {
+                try
+                {
+                    // Declaration Objets
+                    AvoirType avoirType = new AvoirType();
+                    Types type1 = new Types();
+                    Types type2 = new Types();
+
+                    // On vide la liste de Types
+                    lstTp.Clear();
+
+                    // Recuperation du Numero du pkm dans une variable de type String
+                    string num = lbx.SelectedItem.ToString().Substring(0, 3);
+//                    MessageBox.Show("Numéro Pokédex : " + num, "Numéro du Pokemon");
+
+                    foreach (AvoirType avTp in lstAt)
+                    {
+                        if (avTp.GetPkmAvoirType().GetNumPokedexMondialPkm().Equals(num.ToString()))
+                        {
+                            if(type1.GetIdType() == 0)
+                            {
+                                type1 = avTp.GetTypeAvoirType();
+
+                                lstTp.Add(type1);
+                            }
+                            else
+                            {
+                                type2 = avTp.GetTypeAvoirType();
+
+                                lstTp.Add(type2);
+                            }
+                        }
+                    }
+
+                    if (lstTp.Count() == 1)
+                    {
+                        // On inscrit le libelle du Type dans le Label souhaite
+                        lblType1.Text = type1.GetLibType().ToString();
+
+                        // On ajuste les Visibiltes des Outils passes en parametre
+                        lblType1.Visible = true;
+                        ckbType1.Visible = true;
+                        lblType2.Visible = false;
+                        ckbType1.Visible = true;
+                        ckbType2.Visible = false;
+                        btnAj.Visible = true;
+                    }
+                    else
+                    {
+                        if (lstTp.Count() == 2)
+                        {
+                            // On inscrit les libelles des Types dans les Label souhaites
+                            lblType1.Text = type1.GetLibType().ToString();
+                            lblType2.Text = type2.GetLibType().ToString();
+                            
+                            // On ajuste les Visibiltes des Outils passes en parametre
+                            lblType1.Visible = true;
+                            ckbType1.Visible = true;
+                            lblType2.Visible = true;
+                            ckbType1.Visible = true;
+                            ckbType2.Visible = true;
+                            btnAj.Visible = true;
+                        } else
+                        {
+                            // On inscrit le message text dans le Label souhaite
+                            lblType1.Text = "Le pokemon ne possède aucun Types";
+                            
+                            // On ajuste les Visibiltes des Outils passes en parametre
+                            lblType1.Visible = true;
+                            ckbType1.Visible = false;
+                            lblType2.Visible = false;
+                            ckbType1.Visible = false;
+                            ckbType2.Visible = false;
+                            btnAj.Visible = true;
+
+                        }
+                    }
+                }
+                catch (Exception e)
+                {
+                    MessageBox.Show("L'erreur suivante a été rencontré : " + e.Message + " / SelectTypeLstBox");
+                }
+            } else
+            {
+                // On inscrit le message text dans le Label souhaite
+                lblType1.Text = "Selection incorrecte";
+
+                // On ajuste les Visibiltes des Outils passes en parametre
+                lblType1.Visible = true;
+                ckbType1.Visible = false;
+                lblType2.Visible = false;
+                ckbType1.Visible = false;
+                ckbType2.Visible = false;
+                btnAj.Visible = false;
+            }
+        }
+
+        public static void InsertionAvoirType(RadioButton rdb1Types, String numPkm, int codeTypes1, int codeTypes2, List<Types> lst)
+        {
+            Pokemon pkm = ConvertPokemon(numPkm);
+
+            if(rdb1Types.Checked == true)
+            {
+                Types types1 = ConvertTypes(codeTypes1, null, lst);
+
+                // Appel de la methode de Creation d'une relation AvoirType 
+                CreatAvoirType(pkm, types1, DBConst.lstSelectAvoirType);
+            } else
+            {
+                if (codeTypes1.Equals(codeTypes2))
+                {
+                    Types types1 = ConvertTypes(codeTypes1, null, lst);
+
+                    MessageBox.Show("Les deux Types rentrés sont les mêmes le type : " + types1.GetLibType() + " seras quand même attribué une fois à : " + pkm.GetNomPokemon(), "Information", 
+                        MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    // Appel de la methode de Creation d'une relation AvoirType 
+                    CreatAvoirType(pkm, types1, DBConst.lstSelectAvoirType);
+                }
+                else
+                {
+                    // recuperation du premier Types a partir de son lib passe en parametre
+                    Types types1 = ConvertTypes(codeTypes1, null, lst);
+
+                    // recuperation du second Types a partir de son lib passe en parametre
+                    Types types2 = ConvertTypes(codeTypes2, null, lst);
+
+                    // Appel de la methode de Creation de la première relation AvoirType
+                    CreatAvoirType(pkm, types1, DBConst.lstSelectAvoirType);
+
+                    // Appel de la methode de Creation de la seconde relation AvoirType
+                    CreatAvoirType(pkm, types2, DBConst.lstSelectAvoirType);
+                }
+            }
+        }
+
+        public static void SuppressionAvoirType(CheckBox ckbLbl1, CheckBox ckbLbl2, Label lblType1, Label lblType2, ListBox lbx, List<AvoirType> lstAT, Button BtnAjoutType)
+        {
+            AvoirType avoirType1 = new AvoirType();
+            AvoirType avoirType2 = new AvoirType();
+
+            // Recuperation du Numero du pkm dans une variable de type String
+            string numPkm = lbx.SelectedItem.ToString().Substring(0, 3);
+
+            if (ckbLbl1.Checked == true && ckbLbl2.Checked == true)
+            {
+                Pokemon pkm = ConvertPokemon(lbx.SelectedItem.ToString().Substring(0,3));
+
+                Types tp1 = ConvertTypes(0, lblType1.Text, DBConst.lstSelectType);
+                Types tp2 = ConvertTypes(0, lblType2.Text, DBConst.lstSelectType);
+
+                avoirType1 = ConvertAvoirType(pkm, tp1);
+                avoirType2 = ConvertAvoirType(pkm, tp2);
+
+                MessageBox.Show("AvoirType 1 : " + avoirType1.GetTypeAvoirType().GetLibType() + " / " + avoirType1.GetPkmAvoirType().GetNumPokedexMondialPkm(), "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                MessageBox.Show("AvoirType 2 : " + avoirType2.GetTypeAvoirType().GetLibType() + " / " + avoirType2.GetPkmAvoirType().GetNumPokedexMondialPkm(), "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                
+                // Appel de la methode de Suppression de la relation AvoirType avoirType1
+                DeleteAvoirType(avoirType1, lstAT);
+
+                // Appel de la methode de Suppression de la relation AvoirType avoirType2
+                DeleteAvoirType(avoirType2, lstAT);
+
+                // On enleve le coche des CheckBox et on reactualise la selection de la Lbx
+                ckbLbl1.Checked = false;
+                ckbLbl2.Checked = false;
+                OutilsPkdx.SelectTypeLstBox(lbx, lblType1, lblType2, ckbLbl1, ckbLbl2, BtnAjoutType, lstAT, DBConst.lstSelectTypeLBX);
+            }
+            else
+            {
+                if (ckbLbl1.Checked == true)
+                {
+                    Pokemon pkm = ConvertPokemon(lbx.SelectedItem.ToString().Substring(0, 3));
+
+                    MessageBox.Show("Pokemon : " + pkm.GetNomPokemon(), "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                    Types tp1 = ConvertTypes(0, lblType1.Text, DBConst.lstSelectType);
+
+                    MessageBox.Show("Types 1 : " + tp1.GetLibType() + " / " + lblType1.Text, "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                    avoirType1 = ConvertAvoirType(pkm, tp1);
+
+//                    MessageBox.Show("AvoirType 1 : " + avoirType1.GetTypeAvoirType().GetLibType() + " / " + avoirType1.GetPkmAvoirType().GetNumPokedexMondialPkm(), "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    
+                    // Appel de la methode de Suppression de la relation AvoirType avoirType1
+                    DeleteAvoirType(avoirType1, lstAT);
+
+                    // On enleve le coche de la CheckBox conernée et on reactualise la selection de la Lbx
+                    ckbLbl1.Checked = false;
+                    OutilsPkdx.SelectTypeLstBox(lbx, lblType1, lblType2, ckbLbl1, ckbLbl2, BtnAjoutType, lstAT, DBConst.lstSelectTypeLBX);
+                }
+                else
+                {
+                    if(ckbLbl2.Checked == true)
+                    {
+                        Pokemon pkm = ConvertPokemon(lbx.SelectedItem.ToString().Substring(0, 3));
+
+                        Types tp2 = ConvertTypes(0, lblType2.Text, DBConst.lstSelectType);
+
+                        MessageBox.Show("Types 2 : " + tp2.GetLibType(), "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+
+                        avoirType2 = ConvertAvoirType(pkm, tp2);
+
+                        MessageBox.Show("AvoirType 2 : " + avoirType2.GetTypeAvoirType().GetLibType() + " / " + avoirType2.GetPkmAvoirType().GetNumPokedexMondialPkm(), "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                        
+                        // Appel de la methode de Suppression de la relation AvoirType avoirType2
+                        DeleteAvoirType(avoirType2, lstAT);
+
+                        // On enleve le coche de la CheckBox conernée et on reactualise la selection de la Lbx
+                        ckbLbl2.Checked = false;
+                        OutilsPkdx.SelectTypeLstBox(lbx, lblType1, lblType2, ckbLbl1, ckbLbl2, BtnAjoutType, lstAT, DBConst.lstSelectTypeLBX);
+                    } else
+                    {
+                        // Bien que normalement les controles de l'IHM empeche ce genre de cas
+                        MessageBox.Show("Aucun élèments sélectionné pour être suprrimé ", "Information", MessageBoxButtons.OK, MessageBoxIcon.Information);
+                    }
+                }
+            }
+        }
         #endregion
 
         #region TypeEvolution

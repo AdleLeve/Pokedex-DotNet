@@ -3,3 +3,8 @@ C:\Users\Adèle\Documents\Adèle\Projet personnel\pokedex\VisualStudio\PokedexCl
 C:\Users\Adèle\Documents\Adèle\Projet personnel\pokedex\VisualStudio\PokedexClasses\PokedexClasses\bin\Debug\PokedexClasses.pdb
 C:\Users\Adèle\Documents\Adèle\Projet personnel\pokedex\VisualStudio\PokedexClasses\PokedexClasses\obj\Debug\PokedexClasses.dll
 C:\Users\Adèle\Documents\Adèle\Projet personnel\pokedex\VisualStudio\PokedexClasses\PokedexClasses\obj\Debug\PokedexClasses.pdb
+C:\Users\Adèle\Documents\Adele\Projet personnel\pokedex\VisualStudio\PokedexClasses\PokedexClasses\bin\Debug\PokedexClasses.dll
+C:\Users\Adèle\Documents\Adele\Projet personnel\pokedex\VisualStudio\PokedexClasses\PokedexClasses\bin\Debug\PokedexClasses.pdb
+C:\Users\Adèle\Documents\Adele\Projet personnel\pokedex\VisualStudio\PokedexClasses\PokedexClasses\obj\Debug\PokedexClasses.csprojAssemblyReference.cache
+C:\Users\Adèle\Documents\Adele\Projet personnel\pokedex\VisualStudio\PokedexClasses\PokedexClasses\obj\Debug\PokedexClasses.dll
+C:\Users\Adèle\Documents\Adele\Projet personnel\pokedex\VisualStudio\PokedexClasses\PokedexClasses\obj\Debug\PokedexClasses.pdb

@@ -9,7 +9,7 @@ namespace PokedexClasses
     public class Types
 	{
 		// Declaration atributs
-		private int idType;
+		private int id;
 		private String libelle;
 		private Generation generation;
 
@@ -21,7 +21,7 @@ namespace PokedexClasses
 		/// <param name="lGen">Generation</param>
 		public Types(int id, String lib, Generation lGen)
 		{
-			this.idType = id;
+			this.id = id;
 			this.libelle = lib;
 			this.generation = lGen;
 		}
@@ -31,7 +31,7 @@ namespace PokedexClasses
 		/// </summary>
 		public Types()
 		{
-			this.idType = 0;
+			this.id = 0;
 			this.libelle = null;
 			this.generation = null;
 		}
@@ -42,7 +42,7 @@ namespace PokedexClasses
 		/// <returns>int</returns>
 		public int GetIdType()
 		{
-			return this.idType;
+			return this.id;
 		}
 
 		/// <summary>
@@ -51,7 +51,7 @@ namespace PokedexClasses
 		/// <param name="id">int</param>
 		public void SetIdType(int id)
 		{
-			this.idType = id;
+			this.id = id;
 		}
 
 		/// <summary>

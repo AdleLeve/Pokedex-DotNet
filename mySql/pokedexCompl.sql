@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3308
--- Généré le :  lun. 30 mars 2020 à 17:55
+-- Généré le :  sam. 04 avr. 2020 à 11:06
 -- Version du serveur :  8.0.18
 -- Version de PHP :  7.3.12
 
@@ -28,6 +28,10 @@ DELIMITER $$
 --
 -- Procédures
 --
+CREATE DEFINER=`root`@`localhost` PROCEDURE `PROC_Delete_Avoir_Type` (IN `p_num_Ancien` CHAR(3), `p_code_Ancien` INT)  BEGIN
+	DELETE FROM avoir_type WHERE num_pkdex_monde = p_num_Ancien AND code_type = p_code_Ancien ;
+END$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `PROC_Insert_annee` (IN `p_num_annee` CHAR(4))  BEGIN
 	INSERT INTO Annee (numero_annee) VALUES (p_num_annee);
 END$$
@@ -81,13 +85,13 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `PROC_Select_Annee_ordreA` ()  BEGIN
 END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `PROC_Select_Avoir_Type_ordAPkm` ()  BEGIN
-	Select num_pkdx_monde as num, code_type as code
+	Select num_pkdex_monde as num, code_type as code
 	From Avoir_Type
 	Order By num;
 END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `PROC_Select_cbx_img` ()  BEGIN
-	Select CONCAT(url_img, extension_img) as url, id_img as id
+	Select CONCAT(url_img, extension_img) as url
 	From Images
 	Order By id_img;
 END$$
@@ -142,6 +146,12 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `PROC_Select_TypeEvol_OrdreA` ()  BE
 	Select id_type_evol as id, libelle_type_evol as lib
 	From Type_Evolution
 	Order By lib;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `PROC_Select_Type_Cbx` ()  BEGIN
+	Select code_Type as code, libelle_type as lib
+	From Type
+	Order By code;
 END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `PROC_Select_Type_ordreACode` ()  BEGIN

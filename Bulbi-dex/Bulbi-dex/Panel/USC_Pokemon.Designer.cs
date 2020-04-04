@@ -29,6 +29,18 @@
         private void InitializeComponent()
         {
             this.PnlTypes = new System.Windows.Forms.Panel();
+            this.pnlAvoirType = new System.Windows.Forms.Panel();
+            this.ckbTypes2 = new System.Windows.Forms.CheckBox();
+            this.ckbTypes1 = new System.Windows.Forms.CheckBox();
+            this.lblTypesPkmSelect2 = new System.Windows.Forms.Label();
+            this.lblTypesPkmSelect1 = new System.Windows.Forms.Label();
+            this.BtnAjoutType = new System.Windows.Forms.Button();
+            this.btnSuppAvoirType = new System.Windows.Forms.Button();
+            this.cbxType2 = new System.Windows.Forms.ComboBox();
+            this.cbxType1 = new System.Windows.Forms.ComboBox();
+            this.lblATText = new System.Windows.Forms.Label();
+            this.rdb2AV = new System.Windows.Forms.RadioButton();
+            this.rdb1AV = new System.Windows.Forms.RadioButton();
             this.lblGenText = new System.Windows.Forms.Label();
             this.cbxGenPkm = new System.Windows.Forms.ComboBox();
             this.rdbLegendaireFalse = new System.Windows.Forms.RadioButton();
@@ -45,12 +57,14 @@
             this.LbxPkm = new System.Windows.Forms.ListBox();
             this.BtnImgValid = new System.Windows.Forms.Button();
             this.PnlTypes.SuspendLayout();
+            this.pnlAvoirType.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ptbSelectPkm)).BeginInit();
             this.SuspendLayout();
             // 
             // PnlTypes
             // 
             this.PnlTypes.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.PnlTypes.Controls.Add(this.pnlAvoirType);
             this.PnlTypes.Controls.Add(this.lblGenText);
             this.PnlTypes.Controls.Add(this.cbxGenPkm);
             this.PnlTypes.Controls.Add(this.rdbLegendaireFalse);
@@ -70,6 +84,135 @@
             this.PnlTypes.Name = "PnlTypes";
             this.PnlTypes.Size = new System.Drawing.Size(594, 376);
             this.PnlTypes.TabIndex = 13;
+            // 
+            // pnlAvoirType
+            // 
+            this.pnlAvoirType.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.pnlAvoirType.Controls.Add(this.ckbTypes2);
+            this.pnlAvoirType.Controls.Add(this.ckbTypes1);
+            this.pnlAvoirType.Controls.Add(this.lblTypesPkmSelect2);
+            this.pnlAvoirType.Controls.Add(this.lblTypesPkmSelect1);
+            this.pnlAvoirType.Controls.Add(this.BtnAjoutType);
+            this.pnlAvoirType.Controls.Add(this.btnSuppAvoirType);
+            this.pnlAvoirType.Controls.Add(this.cbxType2);
+            this.pnlAvoirType.Controls.Add(this.cbxType1);
+            this.pnlAvoirType.Controls.Add(this.lblATText);
+            this.pnlAvoirType.Controls.Add(this.rdb2AV);
+            this.pnlAvoirType.Controls.Add(this.rdb1AV);
+            this.pnlAvoirType.Location = new System.Drawing.Point(182, 210);
+            this.pnlAvoirType.Name = "pnlAvoirType";
+            this.pnlAvoirType.Size = new System.Drawing.Size(407, 142);
+            this.pnlAvoirType.TabIndex = 25;
+            // 
+            // ckbTypes2
+            // 
+            this.ckbTypes2.AutoSize = true;
+            this.ckbTypes2.Location = new System.Drawing.Point(299, 34);
+            this.ckbTypes2.Name = "ckbTypes2";
+            this.ckbTypes2.Size = new System.Drawing.Size(93, 30);
+            this.ckbTypes2.TabIndex = 29;
+            this.ckbTypes2.Text = "Selectionner\r\ntype ci-dessus";
+            this.ckbTypes2.UseVisualStyleBackColor = true;
+            this.ckbTypes2.CheckedChanged += new System.EventHandler(this.CkbTypes2_CheckedChanged);
+            // 
+            // ckbTypes1
+            // 
+            this.ckbTypes1.AutoSize = true;
+            this.ckbTypes1.Location = new System.Drawing.Point(199, 33);
+            this.ckbTypes1.Name = "ckbTypes1";
+            this.ckbTypes1.Size = new System.Drawing.Size(93, 30);
+            this.ckbTypes1.TabIndex = 28;
+            this.ckbTypes1.Text = "Selectionner\r\ntype ci-dessus";
+            this.ckbTypes1.UseVisualStyleBackColor = true;
+            this.ckbTypes1.CheckedChanged += new System.EventHandler(this.CkbTypes1_CheckedChanged);
+            // 
+            // lblTypesPkmSelect2
+            // 
+            this.lblTypesPkmSelect2.AutoSize = true;
+            this.lblTypesPkmSelect2.Location = new System.Drawing.Point(300, 10);
+            this.lblTypesPkmSelect2.Name = "lblTypesPkmSelect2";
+            this.lblTypesPkmSelect2.Size = new System.Drawing.Size(35, 13);
+            this.lblTypesPkmSelect2.TabIndex = 27;
+            this.lblTypesPkmSelect2.Text = "label1";
+            // 
+            // lblTypesPkmSelect1
+            // 
+            this.lblTypesPkmSelect1.AutoSize = true;
+            this.lblTypesPkmSelect1.Location = new System.Drawing.Point(200, 10);
+            this.lblTypesPkmSelect1.Name = "lblTypesPkmSelect1";
+            this.lblTypesPkmSelect1.Size = new System.Drawing.Size(35, 13);
+            this.lblTypesPkmSelect1.TabIndex = 26;
+            this.lblTypesPkmSelect1.Text = "label1";
+            // 
+            // BtnAjoutType
+            // 
+            this.BtnAjoutType.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnAjoutType.Location = new System.Drawing.Point(211, 106);
+            this.BtnAjoutType.Name = "BtnAjoutType";
+            this.BtnAjoutType.Size = new System.Drawing.Size(112, 23);
+            this.BtnAjoutType.TabIndex = 6;
+            this.BtnAjoutType.Text = "Ajouter type";
+            this.BtnAjoutType.UseVisualStyleBackColor = true;
+            this.BtnAjoutType.Click += new System.EventHandler(this.BtnAjoutType_Click);
+            // 
+            // btnSuppAvoirType
+            // 
+            this.btnSuppAvoirType.Font = new System.Drawing.Font("Microsoft Sans Serif", 8.25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.btnSuppAvoirType.Location = new System.Drawing.Point(41, 104);
+            this.btnSuppAvoirType.Name = "btnSuppAvoirType";
+            this.btnSuppAvoirType.Size = new System.Drawing.Size(115, 23);
+            this.btnSuppAvoirType.TabIndex = 5;
+            this.btnSuppAvoirType.Text = "Supprimer type(s)";
+            this.btnSuppAvoirType.UseVisualStyleBackColor = true;
+            this.btnSuppAvoirType.Click += new System.EventHandler(this.BtnSuppAvoirType_Click);
+            // 
+            // cbxType2
+            // 
+            this.cbxType2.FormattingEnabled = true;
+            this.cbxType2.Location = new System.Drawing.Point(167, 72);
+            this.cbxType2.Name = "cbxType2";
+            this.cbxType2.Size = new System.Drawing.Size(156, 21);
+            this.cbxType2.TabIndex = 4;
+            // 
+            // cbxType1
+            // 
+            this.cbxType1.FormattingEnabled = true;
+            this.cbxType1.Location = new System.Drawing.Point(3, 72);
+            this.cbxType1.Name = "cbxType1";
+            this.cbxType1.Size = new System.Drawing.Size(153, 21);
+            this.cbxType1.TabIndex = 3;
+            // 
+            // lblATText
+            // 
+            this.lblATText.AutoSize = true;
+            this.lblATText.Location = new System.Drawing.Point(10, 9);
+            this.lblATText.Name = "lblATText";
+            this.lblATText.Size = new System.Drawing.Size(156, 13);
+            this.lblATText.TabIndex = 2;
+            this.lblATText.Text = "Nombre de types du Pokemon :";
+            // 
+            // rdb2AV
+            // 
+            this.rdb2AV.AutoSize = true;
+            this.rdb2AV.Location = new System.Drawing.Point(50, 32);
+            this.rdb2AV.Name = "rdb2AV";
+            this.rdb2AV.Size = new System.Drawing.Size(31, 17);
+            this.rdb2AV.TabIndex = 1;
+            this.rdb2AV.Text = "2";
+            this.rdb2AV.UseVisualStyleBackColor = true;
+            // 
+            // rdb1AV
+            // 
+            this.rdb1AV.AutoSize = true;
+            this.rdb1AV.Checked = true;
+            this.rdb1AV.Location = new System.Drawing.Point(13, 32);
+            this.rdb1AV.Name = "rdb1AV";
+            this.rdb1AV.Size = new System.Drawing.Size(31, 17);
+            this.rdb1AV.TabIndex = 0;
+            this.rdb1AV.TabStop = true;
+            this.rdb1AV.Text = "1";
+            this.rdb1AV.UseVisualStyleBackColor = true;
+            this.rdb1AV.CheckedChanged += new System.EventHandler(this.Rdb1AV_CheckedChanged);
             // 
             // lblGenText
             // 
@@ -169,7 +312,7 @@
             // 
             // ptbSelectPkm
             // 
-            this.ptbSelectPkm.Location = new System.Drawing.Point(197, 231);
+            this.ptbSelectPkm.Location = new System.Drawing.Point(435, 16);
             this.ptbSelectPkm.Name = "ptbSelectPkm";
             this.ptbSelectPkm.Size = new System.Drawing.Size(154, 140);
             this.ptbSelectPkm.TabIndex = 14;
@@ -182,7 +325,7 @@
             this.cbxUrlImg.Name = "cbxUrlImg";
             this.cbxUrlImg.Size = new System.Drawing.Size(170, 21);
             this.cbxUrlImg.TabIndex = 12;
-            this.cbxUrlImg.SelectedValueChanged += new System.EventHandler(this.CbxExtImg_SelectedValueChanged);
+            this.cbxUrlImg.SelectionChangeCommitted += new System.EventHandler(this.CbxUrlImg_SelectionChangeCommitted);
             // 
             // TbxNomImg
             // 
@@ -199,6 +342,7 @@
             this.LbxPkm.Name = "LbxPkm";
             this.LbxPkm.Size = new System.Drawing.Size(192, 160);
             this.LbxPkm.TabIndex = 3;
+            this.LbxPkm.SelectedValueChanged += new System.EventHandler(this.LbxPkm_SelectedValueChanged);
             // 
             // BtnImgValid
             // 
@@ -223,6 +367,8 @@
             this.Load += new System.EventHandler(this.USC_Pokemon_Load);
             this.PnlTypes.ResumeLayout(false);
             this.PnlTypes.PerformLayout();
+            this.pnlAvoirType.ResumeLayout(false);
+            this.pnlAvoirType.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ptbSelectPkm)).EndInit();
             this.ResumeLayout(false);
 
@@ -246,5 +392,17 @@
         private System.Windows.Forms.RadioButton rdbLegendaireTrue;
         private System.Windows.Forms.Label lblGenText;
         private System.Windows.Forms.ComboBox cbxGenPkm;
+        private System.Windows.Forms.Panel pnlAvoirType;
+        private System.Windows.Forms.ComboBox cbxType2;
+        private System.Windows.Forms.ComboBox cbxType1;
+        private System.Windows.Forms.Label lblATText;
+        private System.Windows.Forms.RadioButton rdb2AV;
+        private System.Windows.Forms.RadioButton rdb1AV;
+        private System.Windows.Forms.Label lblTypesPkmSelect1;
+        private System.Windows.Forms.Button BtnAjoutType;
+        private System.Windows.Forms.Button btnSuppAvoirType;
+        private System.Windows.Forms.CheckBox ckbTypes2;
+        private System.Windows.Forms.CheckBox ckbTypes1;
+        private System.Windows.Forms.Label lblTypesPkmSelect2;
     }
 }
