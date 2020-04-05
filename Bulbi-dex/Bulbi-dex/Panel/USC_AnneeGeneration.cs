@@ -89,7 +89,7 @@ namespace Bulbi_dex.Panel
         {
             if (OutilsPkdx.VerifFormatGen(MtbNumGen.Text) == true)
             {
-                Annee an = OutilsPkdx.RecupAnneeCbx(CbxAnnGen.SelectedValue.ToString(), DBConst.lstSelectAnnee);
+                Annee an = OutilsPkdx.ConvertAnnee(CbxAnnGen.SelectedValue.ToString(), DBConst.lstSelectAnnee);
 
                 OutilsPkdx.CreatGen(int.Parse(MtbNumGen.Text), an, DBConst.lstSelectGen);
 

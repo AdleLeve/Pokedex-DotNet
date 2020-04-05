@@ -99,6 +99,13 @@ BEGIN
 	Order By num;
 END|
 
+CREATE PROCEDURE PROC_Select_Cbx_Pkm ()
+BEGIN 
+	Select num_pkdx_monde as num, nom_pkm as nom
+	From Pokemon
+	Order By num;
+END|
+
 -- Avoir_Type --
 CREATE PROCEDURE PROC_Insert_Avoir_Type (IN p_num_pkdx Char(3), IN p_code_type Int)
 BEGIN
@@ -158,7 +165,21 @@ END |
 
 CREATE PROCEDURE PROC_Select_Evolution_ordASousEvol ()
 BEGIN
-	Select libelle_court_evol as lib, num_pkdex_sous_evol as sous_evol, num_pkdex_sur_evol as sur_evol, type_evol as typeEvol
+	Select id_evol as id, libelle_court_evol as lib, num_pkdex_sous_evol as sous_evol, num_pkdex_sur_evol as sur_evol, type_evol as typeEvol
 	From Evolution
 	Order By sous_evol;
 END|
+
+CREATE PROCEDURE PROC_Select_cbx_Evol_ordALib ()
+BEGIN
+	Select libelle_court_evol as libEvol, pSous.nom_pkm as sousEvol, pSur.nom_pkm as surEvol, libelle_type_evol as libType
+	From Evolution
+	INNER JOIN pokemon as pSous
+	On num_pkdex_sous_evol = pSous.num_pkdx_monde
+	INNER JOIN pokemon as pSur
+	On num_pkdex_sur_evol = pSur.num_pkdx_monde
+	Inner Join type_evolution
+	on id_type_evol = type_evol
+	Order By libEvol;
+END|
+

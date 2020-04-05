@@ -25,8 +25,7 @@ namespace Bulbi_dex.Panel
             {
                 lbx.Items.Add(p.GetNumPokedexMondialPkm() + " / " + p.GetNomPokemon());
             }
-
-            MessageBox.Show("remplissage finis", "informations", MessageBoxButtons.OK);
+//            MessageBox.Show("remplissage finis", "informations", MessageBoxButtons.OK);
         }
 
         public USC_Pokemon()
@@ -34,14 +33,14 @@ namespace Bulbi_dex.Panel
             InitializeComponent();
         }
 
-        private void BtnImgValid_Click(object sender, EventArgs e)
+        private void BtnPkmValid_Click(object sender, EventArgs e)
         {
 //            String desc = OutilsPkdx.FormeDescription(rtbDescText.Text);
             if (OutilsPkdx.VerifFormatPkm(mtbNumPkm.Text, TbxNomImg.Text, rtbDescText.Text) == true)
             {
-                Generation gen = OutilsPkdx.RecupGenCbx(cbxGenPkm.SelectedValue.ToString(), DBConst.lstSelectGen);
+                Generation gen = OutilsPkdx.ConvertGen(cbxGenPkm.SelectedValue.ToString(), DBConst.lstSelectGen);
 
-                Images img = OutilsPkdx.RecupImgCbx(cbxUrlImg.SelectedValue.ToString(), DBConst.lstSelectImg);
+                Images img = OutilsPkdx.ConvertImg(cbxUrlImg.SelectedValue.ToString(), DBConst.lstSelectImg);
 
                 Pokemon p = OutilsPkdx.CreatPokemon(mtbNumPkm.Text.ToString(), TbxNomImg.Text.ToString(), rtbDescText.Text,
                     img, OutilsPkdx.GetValRadButton(rdbLegendaireTrue), gen,DBConst.lstSelectPkm);

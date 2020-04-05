@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3308
--- Généré le :  sam. 04 avr. 2020 à 11:06
+-- Généré le :  Dim 05 avr. 2020 à 11:38
 -- Version du serveur :  8.0.18
 -- Version de PHP :  7.3.12
 
@@ -90,10 +90,28 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `PROC_Select_Avoir_Type_ordAPkm` () 
 	Order By num;
 END$$
 
+CREATE DEFINER=`root`@`localhost` PROCEDURE `PROC_Select_cbx_Evol_ordALib` ()  BEGIN
+	Select libelle_court_evol as libEvol, pSous.nom_pkm as sousEvol, pSur.nom_pkm as surEvol, libelle_type_evol as libType
+	From Evolution
+	INNER JOIN pokemon as pSous
+	On num_pkdex_sous_evol = pSous.num_pkdx_monde
+	INNER JOIN pokemon as pSur
+	On num_pkdex_sur_evol = pSur.num_pkdx_monde
+	Inner Join type_evolution
+	on id_type_evol = type_evol
+	Order By libEvol;
+END$$
+
 CREATE DEFINER=`root`@`localhost` PROCEDURE `PROC_Select_cbx_img` ()  BEGIN
 	Select CONCAT(url_img, extension_img) as url
 	From Images
 	Order By id_img;
+END$$
+
+CREATE DEFINER=`root`@`localhost` PROCEDURE `PROC_Select_Cbx_Pkm` ()  BEGIN 
+	Select num_pkdx_monde as num, nom_pkm as nom
+	From Pokemon
+	Order By num;
 END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `PROC_Select_cbx_pkm_img` ()  BEGIN
@@ -119,7 +137,7 @@ CREATE DEFINER=`root`@`localhost` PROCEDURE `PROC_Select_Count_Avoir_Type_Pkm` (
 END$$
 
 CREATE DEFINER=`root`@`localhost` PROCEDURE `PROC_Select_Evolution_ordASousEvol` ()  BEGIN
-	Select libelle_court_evol as lib, num_pkdex_sous_evol as sous_evol, num_pkdex_sur_evol as sur_evol, type_evol as typeEvol
+	Select id_evol as id, libelle_court_evol as lib, num_pkdex_sous_evol as sous_evol, num_pkdex_sur_evol as sur_evol, type_evol as typeEvol
 	From Evolution
 	Order By sous_evol;
 END$$

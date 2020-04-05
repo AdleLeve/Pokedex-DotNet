@@ -63,13 +63,9 @@ namespace Bulbi_dex.Controller
             {
                 // Tentative de Fermeture a la base de donnee
                 gObjetConnection.Close();
-
-//                Console.WriteLine("Fermeture Base de donnee");
-//                MessageBox.Show("Fermeture Base de donnee");
             } catch (Exception e)
             {
                 // Affichage du message d'erreur
-//                Console.WriteLine("Erreur : " + e.Message);
                 MessageBox.Show("Erreur : " + e.Message);
             }
             
@@ -97,7 +93,6 @@ namespace Bulbi_dex.Controller
             catch (Exception probleme)
             {
                 MessageBox.Show("Impossible de se connecter au serveur de base de données." + probleme.Message);
-//                Console.WriteLine("Impossible de se connecter au serveur de base de données." + probleme.Message);
                 entier = 0;
             }
             
@@ -156,7 +151,6 @@ namespace Bulbi_dex.Controller
             catch (Exception probleme)
             {
                 MessageBox.Show("Impossible de se connecter au serveur de base de données." + probleme.Message);
-//                Console.WriteLine("Impossible de se connecter au serveur de base de données." + probleme.Message);
                 Sdr = null;
             }
             // On ne ferme pas la connection a la BDD afin de pouvoir traiter les donnees recuperer par d'autres moyens par la suite

@@ -55,7 +55,7 @@
             this.cbxUrlImg = new System.Windows.Forms.ComboBox();
             this.TbxNomImg = new System.Windows.Forms.TextBox();
             this.LbxPkm = new System.Windows.Forms.ListBox();
-            this.BtnImgValid = new System.Windows.Forms.Button();
+            this.BtnPkmValid = new System.Windows.Forms.Button();
             this.PnlTypes.SuspendLayout();
             this.pnlAvoirType.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.ptbSelectPkm)).BeginInit();
@@ -79,7 +79,7 @@
             this.PnlTypes.Controls.Add(this.cbxUrlImg);
             this.PnlTypes.Controls.Add(this.TbxNomImg);
             this.PnlTypes.Controls.Add(this.LbxPkm);
-            this.PnlTypes.Controls.Add(this.BtnImgValid);
+            this.PnlTypes.Controls.Add(this.BtnPkmValid);
             this.PnlTypes.Location = new System.Drawing.Point(2, 3);
             this.PnlTypes.Name = "PnlTypes";
             this.PnlTypes.Size = new System.Drawing.Size(594, 376);
@@ -344,17 +344,17 @@
             this.LbxPkm.TabIndex = 3;
             this.LbxPkm.SelectedValueChanged += new System.EventHandler(this.LbxPkm_SelectedValueChanged);
             // 
-            // BtnImgValid
+            // BtnPkmValid
             // 
-            this.BtnImgValid.BackColor = System.Drawing.Color.White;
-            this.BtnImgValid.Font = new System.Drawing.Font("Noto Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
-            this.BtnImgValid.Location = new System.Drawing.Point(3, 339);
-            this.BtnImgValid.Name = "BtnImgValid";
-            this.BtnImgValid.Size = new System.Drawing.Size(83, 28);
-            this.BtnImgValid.TabIndex = 2;
-            this.BtnImgValid.Text = "Valider";
-            this.BtnImgValid.UseVisualStyleBackColor = false;
-            this.BtnImgValid.Click += new System.EventHandler(this.BtnImgValid_Click);
+            this.BtnPkmValid.BackColor = System.Drawing.Color.White;
+            this.BtnPkmValid.Font = new System.Drawing.Font("Noto Serif", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.BtnPkmValid.Location = new System.Drawing.Point(3, 339);
+            this.BtnPkmValid.Name = "BtnPkmValid";
+            this.BtnPkmValid.Size = new System.Drawing.Size(83, 28);
+            this.BtnPkmValid.TabIndex = 2;
+            this.BtnPkmValid.Text = "Valider";
+            this.BtnPkmValid.UseVisualStyleBackColor = false;
+            this.BtnPkmValid.Click += new System.EventHandler(this.BtnPkmValid_Click);
             // 
             // USC_Pokemon
             // 
@@ -383,7 +383,7 @@
         private System.Windows.Forms.ComboBox cbxUrlImg;
         private System.Windows.Forms.TextBox TbxNomImg;
         private System.Windows.Forms.ListBox LbxPkm;
-        private System.Windows.Forms.Button BtnImgValid;
+        private System.Windows.Forms.Button BtnPkmValid;
         private System.Windows.Forms.Label lblNomText;
         private System.Windows.Forms.MaskedTextBox mtbNumPkm;
         private System.Windows.Forms.Label lblDescText;

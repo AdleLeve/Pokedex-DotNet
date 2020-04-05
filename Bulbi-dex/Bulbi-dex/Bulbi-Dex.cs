@@ -121,11 +121,17 @@ namespace Bulbi_dex
 
         private void BtnEvolution_Click(object sender, EventArgs e)
         {
-            // On fait passer la visibilite de usc_Evol a true
-            OutilsPkdx.VisibiliteUSC(DBConst.lstUSC, usc_Evol);
+            // On recupere les TypeEvolution dans la liste pour
+            OutilsPkdx.RecupTypeEvolution(DBConst.lstSelectTypeEvo);
+
+            // On recupere les Evolutions dans la liste pour
+            OutilsPkdx.RecupEvolution(DBConst.lstSelectEvo);
 
             // On change les couleurs des Bouttons
             OutilsPkdx.ColorBtn(DBConst.lstBtn, BtnEvolution);
+
+            // On fait passer la visibilite de usc_Evol a true
+            OutilsPkdx.VisibiliteUSC(DBConst.lstUSC, usc_Evol);
         }
     }
 }
